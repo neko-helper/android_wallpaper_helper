@@ -1,4 +1,4 @@
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~     Android wallpaper helper
   ~     Copyright (C) 2022  gtf35
   ~
@@ -17,17 +17,13 @@
   -->
 
 <resources>
-    <string name="jpg_mime" translatable="false">image/jpeg</string>
-    <string name="png_mime" translatable="false">image/png</string>
-    <string name="gallery_folder_name" translatable="false">gallery</string>
-
     <string name="app_name">WallpaperHelper</string>
-    <string name="import_pic">Import</string>
-    <string name="select_file">Select file</string>
-    <string name="import_cancel">Import canceled</string>
-    <string name="is_importing_pic">Importing pictures…</string>
-    <string name="please_wait">Please wait</string>
-    <string name="finished_count_and_all_count">Processing %d of %d </string>
-    <string name="import_finished">Import complete 🎉</string>
-    <string name="import_finished_all_count">%d pictures were imported</string>
+    <string name="import_pic">导入图片</string>
+    <string name="select_file">选择图片</string>
+    <string name="import_cancel">取消导入</string>
+    <string name="is_importing_pic">导入图片…</string>
+    <string name="please_wait">请稍后</string>
+    <string name="finished_count_and_all_count">正在处理第 %d 张，共 %d 张</string>
+    <string name="import_finished">导入完成 🎉</string>
+    <string name="import_finished_all_count">共导入 %d 张图片</string>
 </resources>
