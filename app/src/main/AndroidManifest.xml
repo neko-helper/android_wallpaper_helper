@@ -44,6 +44,10 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <!-- Flipper: help diagnose integration issues and other problems -->
+        <activity android:name="com.facebook.flipper.android.diagnostics.FlipperDiagnosticActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

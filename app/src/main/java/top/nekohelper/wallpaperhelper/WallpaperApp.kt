@@ -26,6 +26,7 @@ class WallpaperApp : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         appContext = this
+        FlipperUtils.prep(this)
     }
 
     companion object {

@@ -15,6 +15,15 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                def schemasFolder = new File(new File(projectDir, ".."), "schemas")
+                def schemasFolderPath = schemasFolder.getAbsolutePath()
+                arguments += ["room.schemaLocation": schemasFolderPath]
+            }
+        }
+
     }
 
     buildTypes {
@@ -44,6 +53,7 @@ android {
 
 def fragment_version = "1.5.5"
 def lifecycle_version = "2.5.1"
+def room_version = "2.4.3"
 
 dependencies {
 
@@ -63,9 +73,16 @@ dependencies {
     // https://github.com/PureWriter/ToastCompat
     implementation 'me.drakeet.support:toastcompat:1.1.0'
 
-    // MultiType-Easier and more flexible to create multiple types for Android RecyclerView.
+    // MultiType - Easier and more flexible to create multiple types for Android RecyclerView.
     // https://github.com/drakeet/MultiType
     implementation 'com.drakeet.multitype:multitype:4.3.0'
+
+    // A desktop debugging platform for mobile developers.
+    // https://github.com/facebook/flipper
+    debugImplementation 'com.facebook.flipper:flipper:0.176.1'
+    debugImplementation 'com.facebook.soloader:soloader:0.10.4'
+    debugImplementation 'com.facebook.flipper:flipper-network-plugin:0.176.1'
+    releaseImplementation 'com.facebook.flipper:flipper-noop:0.176.1'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.test:core:1.5.0'
