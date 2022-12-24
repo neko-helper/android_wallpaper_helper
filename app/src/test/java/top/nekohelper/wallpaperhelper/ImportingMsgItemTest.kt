@@ -20,7 +20,7 @@ package top.nekohelper.wallpaperhelper
 
 import org.junit.Assert
 import org.junit.Test
-import top.nekohelper.wallpaperhelper.common.msg.ImportingMsgItem
+import top.nekohelper.wallpaperhelper.main.msg.ImportingMsgItem
 
 class ImportingMsgItemTest {
     @Test

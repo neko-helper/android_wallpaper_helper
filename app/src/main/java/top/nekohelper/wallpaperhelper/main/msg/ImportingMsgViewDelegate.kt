@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package top.nekohelper.wallpaperhelper.common.msg
+package top.nekohelper.wallpaperhelper.main.msg
 
 import android.view.LayoutInflater
 import android.view.View

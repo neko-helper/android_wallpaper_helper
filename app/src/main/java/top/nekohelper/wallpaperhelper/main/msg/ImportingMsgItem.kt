@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package top.nekohelper.wallpaperhelper.common.msg
+package top.nekohelper.wallpaperhelper.main.msg
 
 import kotlin.random.Random
 
@@ -26,7 +26,7 @@ data class ImportingMsgItem(
     val allCount: Int,
     val finishedCount: Int,
     val isFinished: Boolean = false,
-    // RecycleView item id , used to calculate stableID
+    // RecyclerView item id , used to calculate stableID
     val msgID: Long = Random.nextInt(0, 10000).toLong()
 ) {
     companion object {
