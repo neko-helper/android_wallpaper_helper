@@ -18,6 +18,8 @@
 
 package top.nekohelper.wallpaperhelper.main.msg
 
+import top.nekohelper.wallpaperhelper.common.Constants
+import top.nekohelper.wallpaperhelper.common.ISpanCounter
 import kotlin.random.Random
 
 @Suppress("unused")
@@ -28,7 +30,8 @@ data class ImportingMsgItem(
     val isFinished: Boolean = false,
     // RecyclerView item id , used to calculate stableID
     val msgID: Long = Random.nextInt(0, 10000).toLong()
-) {
+): ISpanCounter {
+
     companion object {
         const val MSG_IMPORTANCE_LEVEL = 1000
     }
@@ -51,5 +54,9 @@ data class ImportingMsgItem(
         if (other.isFinished != isFinished) return false
         if (other.msgID != msgID) return false
         return true
+    }
+
+    override fun getSpanCount(): Int {
+        return Constants.GALLERY_SPAN
     }
 }

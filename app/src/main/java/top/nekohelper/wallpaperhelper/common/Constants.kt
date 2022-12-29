@@ -16,19 +16,11 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package top.nekohelper.wallpaperhelper.utils
+package top.nekohelper.wallpaperhelper.common
 
-import android.content.Context
-import top.nekohelper.wallpaperhelper.R
-import top.nekohelper.wallpaperhelper.WallpaperApp
-import java.io.File
+object Constants {
 
-@Suppress("MemberVisibilityCanBePrivate")
-object AppPath {
-    fun getPictureStoreFolder(context: Context = WallpaperApp.appContext): File {
-        val folderName = R.string.gallery_folder_name.resStr
-        return File(context.getExternalFilesDir(""), "$folderName/").apply {
-            if (!exists()) mkdirs()
-        }
-    }
+    const val DATABASE_NAME = "main_database"
+    // todo custom in share preference
+    const val GALLERY_SPAN = 3
 }

@@ -33,8 +33,7 @@
             android:id="@+id/rec_main_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layoutManager="LinearLayoutManager" />
+            android:orientation="vertical" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

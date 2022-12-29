@@ -24,7 +24,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
-import top.nekohelper.wallpaperhelper.common.msg.ImportingMsgItem
+import top.nekohelper.wallpaperhelper.main.msg.ImportingMsgItem
+import top.nekohelper.wallpaperhelper.databases.AppDatabase
+import top.nekohelper.wallpaperhelper.databases.FileStorage
+import top.nekohelper.wallpaperhelper.databases.Picture
 import top.nekohelper.wallpaperhelper.utils.*
 import java.io.File
 
@@ -32,11 +35,17 @@ import java.io.File
 private const val TAG = "MainVM"
 
 class MainVM(private val app: Application) : AndroidViewModel(app) {
-    private val mBaseFolder = AppPath.getPictureStoreFolder(app)
+    private val mBaseFolder = AppPath.getPictureStoreFolder()
+    private val mPicDao = AppDatabase.getInstance(app).pictureDao()
+
     // don't use mutable list, MutableLiveData doesn't known list itself inner change
     private val mImportingMsgListLiveData = MutableLiveData<List<ImportingMsgItem>>(listOf())
     val importingMsgListLiveData: LiveData<List<ImportingMsgItem>>
         get() = mImportingMsgListLiveData
+
+    val galleryPicListLiveData = mPicDao.getAll()
+
+
 
     fun saveUrisToGalleryAsync(uris: List<Uri>) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -86,7 +95,21 @@ class MainVM(private val app: Application) : AndroidViewModel(app) {
         val fileName = genFileName(uri)
         val targetFile = File(mBaseFolder, fileName)
         uri.copyTo(targetFile)
-        // todo insert item to database
+        saveToDatabase(targetFile)
+    }
+
+    private suspend fun saveToDatabase(picFile: File) {
+        val widthAndHeight = Utils.getPicWidthAndHeight(picFile)
+        val width = widthAndHeight[0]
+        val height = widthAndHeight[1]
+        val picEntity = Picture(
+            fileName = picFile.name,
+            fileStorageFlag = FileStorage.EXTERNAL_STORAGE.flag,
+            fileSize = picFile.length(),
+            width = width,
+            height = height
+        )
+        mPicDao.insertPictures(picEntity)
     }
 
     private suspend fun genFileName(uri: Uri): String {

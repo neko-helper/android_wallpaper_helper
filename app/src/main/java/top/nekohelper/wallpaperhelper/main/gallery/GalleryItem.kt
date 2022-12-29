@@ -16,19 +16,32 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package top.nekohelper.wallpaperhelper.utils
+package top.nekohelper.wallpaperhelper.main.gallery
 
-import android.content.Context
-import top.nekohelper.wallpaperhelper.R
-import top.nekohelper.wallpaperhelper.WallpaperApp
-import java.io.File
+import top.nekohelper.wallpaperhelper.common.ISpanCounter
+import top.nekohelper.wallpaperhelper.databases.Picture
 
-@Suppress("MemberVisibilityCanBePrivate")
-object AppPath {
-    fun getPictureStoreFolder(context: Context = WallpaperApp.appContext): File {
-        val folderName = R.string.gallery_folder_name.resStr
-        return File(context.getExternalFilesDir(""), "$folderName/").apply {
-            if (!exists()) mkdirs()
-        }
+data class GalleryItem(
+    val pic: Picture,
+): ISpanCounter {
+
+    override fun hashCode(): Int {
+        var code = 0
+        code += GalleryItem::class.java.name.hashCode()
+        code += pic.id.hashCode()
+        code += pic.fileName.hashCode()
+        code += pic.createTimestamp.hashCode()
+        return code
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null) return false
+        if (other !is GalleryItem) return false
+        if (other.pic.id != pic.id) return false
+        return true
+    }
+
+    override fun getSpanCount(): Int {
+        return 1
     }
 }

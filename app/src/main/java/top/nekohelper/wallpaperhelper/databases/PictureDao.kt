@@ -16,19 +16,26 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package top.nekohelper.wallpaperhelper.utils
+package top.nekohelper.wallpaperhelper.databases
 
-import android.content.Context
-import top.nekohelper.wallpaperhelper.R
-import top.nekohelper.wallpaperhelper.WallpaperApp
-import java.io.File
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
-@Suppress("MemberVisibilityCanBePrivate")
-object AppPath {
-    fun getPictureStoreFolder(context: Context = WallpaperApp.appContext): File {
-        val folderName = R.string.gallery_folder_name.resStr
-        return File(context.getExternalFilesDir(""), "$folderName/").apply {
-            if (!exists()) mkdirs()
-        }
-    }
+@Suppress("unused")
+@Dao
+interface PictureDao {
+    @Query("SELECT * FROM pictures")
+    fun getAll(): LiveData<List<Picture>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPictures(vararg pictures: Picture)
+
+    @Update
+    suspend fun updatePictures(vararg pictures: Picture)
+
+    @Query("DELETE FROM pictures WHERE id=:pictureId")
+    suspend fun deletePictures(vararg pictureId: Int)
+
+    @Delete
+    suspend fun deletePictures(vararg user: Picture): Int
 }

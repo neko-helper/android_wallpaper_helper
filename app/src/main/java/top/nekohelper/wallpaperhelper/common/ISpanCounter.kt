@@ -16,19 +16,13 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package top.nekohelper.wallpaperhelper.utils
+package top.nekohelper.wallpaperhelper.common
 
-import android.content.Context
-import top.nekohelper.wallpaperhelper.R
-import top.nekohelper.wallpaperhelper.WallpaperApp
-import java.io.File
-
-@Suppress("MemberVisibilityCanBePrivate")
-object AppPath {
-    fun getPictureStoreFolder(context: Context = WallpaperApp.appContext): File {
-        val folderName = R.string.gallery_folder_name.resStr
-        return File(context.getExternalFilesDir(""), "$folderName/").apply {
-            if (!exists()) mkdirs()
-        }
-    }
+/**
+ * To expand the span attribute as the data class of the item,
+ * it is convenient for him to manage the span attribute by himself
+ * Read and processed by the recycler view's layout manager
+ * */
+interface ISpanCounter {
+    fun getSpanCount(): Int
 }
