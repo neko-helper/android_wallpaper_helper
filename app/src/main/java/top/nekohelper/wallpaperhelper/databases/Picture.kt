@@ -18,9 +18,11 @@
 
 package top.nekohelper.wallpaperhelper.databases
 
+import android.net.Uri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 import top.nekohelper.wallpaperhelper.utils.AppPath
 import top.nekohelper.wallpaperhelper.utils.Utils
 import java.io.File
@@ -45,6 +47,21 @@ data class Picture(
             return File(folder, fileName)
         }
         return null
+    }
+
+    fun toUri(): Uri? {
+        val pictureFile = toFile() ?: return null
+        return Uri.fromFile(pictureFile)
+    }
+
+    fun toJson(): String {
+        return Gson().toJson(this)
+    }
+
+    companion object {
+        fun fromJson(json: String): Picture? {
+            return Gson().fromJson(json, Picture::class.java)
+        }
     }
 }
 

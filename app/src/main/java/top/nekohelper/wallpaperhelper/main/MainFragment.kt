@@ -37,12 +37,13 @@ import com.google.android.material.snackbar.Snackbar
 import top.nekohelper.wallpaperhelper.R
 import top.nekohelper.wallpaperhelper.common.Constants
 import top.nekohelper.wallpaperhelper.common.ISpanCounter
+import top.nekohelper.wallpaperhelper.common.picture_viewer.PictureViewerActivity
 import top.nekohelper.wallpaperhelper.databases.Picture
-import top.nekohelper.wallpaperhelper.main.msg.ImportingMsgItem
-import top.nekohelper.wallpaperhelper.main.msg.ImportingMsgViewDelegate
 import top.nekohelper.wallpaperhelper.databinding.FragmentMainBinding
 import top.nekohelper.wallpaperhelper.main.gallery.GalleryItem
 import top.nekohelper.wallpaperhelper.main.gallery.GalleryViewDelegate
+import top.nekohelper.wallpaperhelper.main.msg.ImportingMsgItem
+import top.nekohelper.wallpaperhelper.main.msg.ImportingMsgViewDelegate
 import top.nekohelper.wallpaperhelper.utils.resStr
 
 private const val TAG = "MainFragment"
@@ -121,7 +122,12 @@ class MainFragment : Fragment() {
             setHasStableIds(true)
             mBinding.recMainFragment.adapter = this
             register(ImportingMsgViewDelegate())
-            register(GalleryViewDelegate(Glide.with(this@MainFragment)))
+            register(GalleryViewDelegate(Glide.with(this@MainFragment)) { galleryItem ->
+                PictureViewerActivity.comeOn(
+                    this@MainFragment.requireActivity(),
+                    galleryItem.pic
+                )
+            })
         }
         syncRecycleViewItems()
     }

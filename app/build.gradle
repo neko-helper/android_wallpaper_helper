@@ -96,6 +96,18 @@ dependencies {
     // https://github.com/bumptech/glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'
 
+
+    // GSON - A Java serialization/deserialization library to convert Java Objects into JSON and back
+    // https://github.com/google/gson
+    implementation 'com.google.code.gson:gson:2.10'
+
+    // subsampling-scale-image-view - Android library (AAR).
+    // Highly configurable,
+    // easily extendable deep zoom view for displaying huge images without loss of detail.
+    // Perfect for photo galleries, maps, building plans etc.
+    // https://github.com/davemorrissey/subsampling-scale-image-view
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.test:core:1.5.0'
     testImplementation 'org.mockito:mockito-core:1.10.19'

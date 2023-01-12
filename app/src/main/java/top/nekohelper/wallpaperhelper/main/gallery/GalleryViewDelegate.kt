@@ -32,7 +32,8 @@ private const val TAG = "GalleryViewDelegate"
 
 class GalleryViewDelegate(
 
-    private val glideRequestManager: RequestManager
+    private val glideRequestManager: RequestManager,
+    private val onItemClickListener: (item: GalleryItem) -> Unit
     ): ItemViewBinder<GalleryItem, GalleryViewDelegate.ViewHolder>() {
     class ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView) {
         val picIV: AppCompatImageView = itemView.findViewById(R.id.iv_gallery_pic)
@@ -46,6 +47,7 @@ class GalleryViewDelegate(
             .load(picFile)
             .centerCrop()
             .into(holder.picIV)
+        holder.picIV.setOnClickListener { onItemClickListener(item) }
     }
 
     override fun onCreateViewHolder(inflater: LayoutInflater, parent: ViewGroup): ViewHolder {

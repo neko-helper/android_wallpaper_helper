@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~     Android wallpaper helper
-  ~     Copyright (C) 2022  gtf35
+  ~     Copyright (C) 2023  gtf35
   ~
   ~     This program is free software: you can redistribute it and/or modify
   ~     it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".WallpaperApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -29,8 +30,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WallpaperHelper"
-        android:name=".WallpaperApp"
         tools:targetApi="33">
+        <activity
+            android:name=".common.picture_viewer.PictureViewerActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
