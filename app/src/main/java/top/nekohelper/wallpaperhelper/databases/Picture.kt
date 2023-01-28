@@ -35,6 +35,7 @@ data class Picture(
     @ColumnInfo(name = "create_timestamp") val createTimestamp: Int = Utils.getIntSTimestamp(),
     @ColumnInfo(name = "file_path") val filePath: String? = null,
     @ColumnInfo(name = "file_name") val fileName: String,
+    @ColumnInfo(name = "file_uri") val fileUri: String?,
     @ColumnInfo(name = "file_storage_flag") val fileStorageFlag: String,
     @ColumnInfo(name = "file_size") val fileSize: Long,
     @ColumnInfo(name = "width") val width: Int,

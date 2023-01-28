@@ -19,6 +19,7 @@
 package top.nekohelper.wallpaperhelper.main
 
 import android.app.Application
+import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -89,16 +90,26 @@ class MainVM(private val app: Application) : AndroidViewModel(app) {
         }
     }
 
+    private suspend fun Uri.takePicPersistableUriPermission() = withContext(Dispatchers.IO) {
+        val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        app.contentResolver.takePersistableUriPermission(this@takePicPersistableUriPermission, flag)
+    }
+
     private suspend fun saveFileAndInsertDatabase(uri: Uri) = withContext(Dispatchers.IO) {
+        // Let users have the ability to access the original image
+        uri.takePicPersistableUriPermission()
+
         // Import too fast, delay it, only for test
         // delay(5 * 1000)
         val fileName = genFileName(uri)
         val targetFile = File(mBaseFolder, fileName)
+        // Backup picture
         uri.copyTo(targetFile)
-        saveToDatabase(targetFile)
+        saveToDatabase(targetFile, uri)
     }
 
-    private suspend fun saveToDatabase(picFile: File) {
+    private suspend fun saveToDatabase(picFile: File, picUri: Uri) {
+        val picUriStr = picUri.toString()
         val widthAndHeight = Utils.getPicWidthAndHeight(picFile)
         val width = widthAndHeight[0]
         val height = widthAndHeight[1]
@@ -107,7 +118,8 @@ class MainVM(private val app: Application) : AndroidViewModel(app) {
             fileStorageFlag = FileStorage.EXTERNAL_STORAGE.flag,
             fileSize = picFile.length(),
             width = width,
-            height = height
+            height = height,
+            fileUri = picUriStr
         )
         mPicDao.insertPictures(picEntity)
     }
